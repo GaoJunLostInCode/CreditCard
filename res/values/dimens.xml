@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">5dp</dimen>
+    <dimen name="activity_vertical_margin">5dp</dimen>
+    
+    <dimen name="activity_header_height">48dp</dimen>
+    
+    <dimen name="creditcard_textsize_24">24sp</dimen>
+
+</resources>

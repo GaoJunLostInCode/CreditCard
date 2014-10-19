@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/activity_header_height"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_header_height"
+        android:background="#00FF00"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView_activityCreditCardBase_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="xxx"
+            android:textColor="@color/creditcard_text_black"
+            android:textSize="@dimen/creditcard_textsize_24" >
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>
