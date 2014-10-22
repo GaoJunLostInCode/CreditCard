@@ -2,25 +2,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="horizontal"
     tools:context="com.lostincode.creditcard.MainActivity$PlaceholderFragment" >
 
-    <TextView
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView_adapterCreditCard_bank"
-		android:layout_weight="1"
-        ></TextView>
-    
-     <TextView
-        android:layout_width="0dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView_adapterCreditCard_bankIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bank_gong_shang" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="2000" >
+        </TextView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView_adapterCreditCard_num"
-		android:layout_weight="3"
-        ></TextView>
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_adapterCreditCard_dayBill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="账单日：23号" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView_adapterCreditCard_dayPayment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="还款日：14号" >
+        </TextView>
+    </LinearLayout>
 
 </LinearLayout>

@@ -5,9 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.jun.gao.creditcard.R;
@@ -19,9 +20,10 @@ public class CreditCardAddFragment extends Fragment
 {
 	private EditText mEtBank = null;
 	private EditText mEtCardNum = null;
-	private DatePicker mEtDayHuanKuan = null;
-	private DatePicker mEtDayZhangDan = null;
 	private Button mBtnSave = null;
+
+	private Spinner mSpinnerDayBill = null;
+	private Spinner mSpinnerDayPayment = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,10 +34,15 @@ public class CreditCardAddFragment extends Fragment
 		mEtBank = (EditText) view.findViewById(R.id.editText_fragmentAdd_bank);
 		mEtCardNum = (EditText) view
 				.findViewById(R.id.editText_fragmentAdd_cardNum);
-		mEtDayHuanKuan = (DatePicker) view
-				.findViewById(R.id.datePicker_fragmentAdd_dayPayment);
-		mEtDayZhangDan = (DatePicker) view
-				.findViewById(R.id.datePicker_fragmentAdd_dayBill);
+		mSpinnerDayBill = (Spinner) view
+				.findViewById(R.id.spinner_adapterFragmentAdd_dayBill);
+		mSpinnerDayPayment = (Spinner) view
+				.findViewById(R.id.spinner_adapterFragmentAdd_dayPayment);
+		String[] days = getResources().getStringArray(R.array.spinner_days);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+				android.R.layout.simple_spinner_dropdown_item, days);
+		mSpinnerDayBill.setAdapter(adapter);
+		mSpinnerDayPayment.setAdapter(adapter);
 
 		mBtnSave = (Button) view.findViewById(R.id.button_fragmentAdd_save);
 		mBtnSave.setOnClickListener(listener);

@@ -61,23 +61,23 @@ public class CreditCardAdapter extends BaseAdapter
 			LayoutInflater inflater = LayoutInflater.from(mContext);
 			convertView = inflater.inflate(R.layout.adapter_creditcard, null);
 			ViewHolder holder = new ViewHolder();
-			holder.mTvBank = (TextView) convertView
-					.findViewById(R.id.textView_adapterCreditCard_bank);
-			holder.mTvCardNum = (TextView) convertView
-					.findViewById(R.id.textView_adapterCreditCard_num);
+			holder.mTvDayBill = (TextView) convertView
+					.findViewById(R.id.textView_adapterCreditCard_dayBill);
+			holder.mTvDayPayment = (TextView) convertView
+					.findViewById(R.id.textView_adapterCreditCard_dayPayment);
 			convertView.setTag(holder);
 		}
 		
 		ViewHolder tag = (ViewHolder) convertView.getTag();
-		tag.mTvBank.setText(card.getmBankName());
-		tag.mTvCardNum.setText(card.getmCardNum());
+		tag.mTvDayBill.setText(card.getStrBillDate());
+		tag.mTvDayPayment.setText(card.getStrPaymentDate());
 
 		return convertView;
 	}
 
 	private static class ViewHolder
 	{
-		private TextView mTvBank = null;
-		private TextView mTvCardNum = null;
+		private TextView mTvDayBill = null;
+		private TextView mTvDayPayment = null;
 	}
 }
