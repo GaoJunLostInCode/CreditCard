@@ -66,7 +66,7 @@ public class SQLiteOperateIml implements SQLiteOperate
 
 		Cursor cursor = sqlDatabase.query(
 				CreditCardSQLiteHelper.DICTIONARY_TABLE_NAME, null, null, null,
-				null, null, null);
+				null, null, CreditCardColumn.DATE_BILL + " DESC");
 		if (null != cursor)
 		{
 			listCards = new ArrayList<CreditCard>();

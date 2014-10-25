@@ -1,5 +1,8 @@
 package com.jun.gao.creditcard.activity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog.Builder;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jun.gao.creditcard.R;
 import com.jun.gao.creditcard.database.SQLiteOperate;
@@ -22,9 +26,11 @@ import com.jun.gao.creditcard.model.CreditCard;
 
 public class CreditCardListActivity extends CreditCardBaseActivity
 {
-	private List<CreditCard> mCreditCards = null;
-	private CreditCardListFragment mFragmentList = null;
-	private Dialog mDialogDel = null;
+	private List<CreditCard> mCreditCards = null;			//data source
+	private CreditCardListFragment mFragmentList = null;	//CreditCard list
+	private TextView mTvDate = null;			//显示日期
+	private Dialog mDialogDel = null;			
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -67,6 +73,11 @@ public class CreditCardListActivity extends CreditCardBaseActivity
 	{
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View view = inflater.inflate(R.layout.activity_creditcard_list, null);
+		
+		mTvDate = (TextView)view.findViewById(R.id.textView_activityCardList_date);
+		Date dateNow = new Date();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		mTvDate.setText(format.format(dateNow));
 
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		mFragmentList = (CreditCardListFragment) fragmentManager

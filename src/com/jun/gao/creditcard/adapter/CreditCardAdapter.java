@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jun.gao.creditcard.R;
 import com.jun.gao.creditcard.model.CreditCard;
+import com.jun.gao.creditcard.util.BankLogo;
 
 public class CreditCardAdapter extends BaseAdapter
 {
@@ -66,6 +68,8 @@ public class CreditCardAdapter extends BaseAdapter
 			LayoutInflater inflater = LayoutInflater.from(mContext);
 			convertView = inflater.inflate(R.layout.adapter_creditcard, null);
 			ViewHolder holder = new ViewHolder();
+			holder.mImgIcon = (ImageView) convertView
+					.findViewById(R.id.imageView_adapterCreditCard_bankIcon);
 			holder.mTvLast4Num = (TextView) convertView
 					.findViewById(R.id.textView_adapterCreditCard_last4Num);
 			holder.mTvDayBill = (TextView) convertView
@@ -76,6 +80,8 @@ public class CreditCardAdapter extends BaseAdapter
 		}
 
 		ViewHolder tag = (ViewHolder) convertView.getTag();
+		tag.mImgIcon
+				.setImageResource(BankLogo.getBankLogoId(card.getBankName()));
 		tag.mTvLast4Num.setText(card.getLast4Num());
 		tag.mTvDayBill.setText("账单日：" + card.getStrBillDate());
 		tag.mTvDayPayment.setText("还款日：" + card.getStrPaymentDate());
@@ -85,8 +91,9 @@ public class CreditCardAdapter extends BaseAdapter
 
 	private static class ViewHolder
 	{
-		private TextView mTvDayBill = null;
-		private TextView mTvDayPayment = null;
-		private TextView mTvLast4Num = null;
+		private ImageView mImgIcon = null; // 银行logo
+		private TextView mTvDayBill = null; // 账单日
+		private TextView mTvDayPayment = null; // 还款日
+		private TextView mTvLast4Num = null; // 后四位
 	}
 }

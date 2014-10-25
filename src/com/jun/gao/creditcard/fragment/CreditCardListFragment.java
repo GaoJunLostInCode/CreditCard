@@ -21,16 +21,15 @@ import com.jun.gao.creditcard.model.CreditCard;
 public class CreditCardListFragment extends Fragment
 {
 	private ListView mListView = null;
-
+	private CreditCardAdapter mAdapter = null;
+	private ItemClickListener mListener = null;
+	
 	public interface ItemClickListener
 	{
 		public void onItemClicked(CreditCard card);
 
 		public void onLongItemClicked(CreditCard card);
 	}
-
-	private CreditCardAdapter mAdapter = null;
-	private ItemClickListener mListener = null;
 
 	public CreditCardListFragment()
 	{
