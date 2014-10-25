@@ -2,23 +2,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/activity_header_height"
+    android:background="@drawable/main_bg"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_header_height"
-        android:background="#00FF00"
-        android:gravity="center" >
+        android:background="#00FF00" >
 
         <TextView
             android:id="@+id/textView_activityCreditCardBase_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="xxx"
             android:textColor="@color/creditcard_text_black"
             android:textSize="@dimen/creditcard_textsize_24" >
         </TextView>
-    </LinearLayout>
+
+        <Button
+            android:id="@+id/button_activityBase_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:text="选项" >
+        </Button>
+    </RelativeLayout>
 
 </LinearLayout>

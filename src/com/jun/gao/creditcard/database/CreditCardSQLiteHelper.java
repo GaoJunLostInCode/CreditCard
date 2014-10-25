@@ -16,10 +16,10 @@ public class CreditCardSQLiteHelper extends SQLiteOpenHelper
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ CreditCardColumn.CARD_BANK + " VARCHAR(16), "
 			+ CreditCardColumn.CARD_LAST4NUM + " VARCHAR(4), "
-			+ CreditCardColumn.DATE_BILL + " DATE, "
+			+ CreditCardColumn.DATE_BILL + " INTEGER, "
 			+ CreditCardColumn.IDENTITY_NUM + " VARCHAR(24), "
 			+ CreditCardColumn.PHONE_NUM + " VARCHAR(16), "
-			+ CreditCardColumn.DATE_PAYMENT + " DATE, "
+			+ CreditCardColumn.DATE_PAYMENT + " INTEGER, "
 			+ CreditCardColumn.DATE_LASTPAIED + " DATE, "
 			+ CreditCardColumn.CARD_NUM + " VARCHAR(24));";
 

@@ -21,10 +21,12 @@
             android:src="@drawable/bank_gong_shang" />
 
         <TextView
+            android:id="@+id/textView_adapterCreditCard_last4Num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
             android:text="2000" >
         </TextView>
     </RelativeLayout>
@@ -39,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@android:color/black"
             android:text="账单日：23号" >
         </TextView>
 
@@ -47,6 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@android:color/black"
             android:text="还款日：14号" >
         </TextView>
     </LinearLayout>

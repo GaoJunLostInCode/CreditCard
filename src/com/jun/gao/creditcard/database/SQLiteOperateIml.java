@@ -90,18 +90,18 @@ public class SQLiteOperateIml implements SQLiteOperate
 					card.setmCardNum(cursor.getString(index));
 
 					index = cursor.getColumnIndex(CreditCardColumn.DATE_BILL);
-					Date date = format.parse(cursor.getString(index));
-					card.setmBillDate(date);
+					int day = cursor.getInt(index);
+					card.setBillDate(day);
 
 					index = cursor
 							.getColumnIndex(CreditCardColumn.DATE_LASTPAIED);
-					date = format.parse(cursor.getString(index));
-					card.setmDateLastPaied(date);
+					Date date = format.parse(cursor.getString(index));
+					card.setDateLastPaied(date);
 
 					index = cursor
 							.getColumnIndex(CreditCardColumn.DATE_PAYMENT);
-					date = format.parse(cursor.getString(index));
-					card.setmPaymentDate(date);
+					day = cursor.getInt(index);
+					card.setPaymentDate(day);
 
 					index = cursor
 							.getColumnIndex(CreditCardColumn.IDENTITY_NUM);

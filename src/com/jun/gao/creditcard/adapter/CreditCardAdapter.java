@@ -22,7 +22,12 @@ public class CreditCardAdapter extends BaseAdapter
 		mContext = context;
 		mCreditCards = cards;
 	}
-	
+
+	public List<CreditCard> getCards()
+	{
+		return mCreditCards;
+	}
+
 	public void setCreditCards(List<CreditCard> cards)
 	{
 		mCreditCards = cards;
@@ -61,16 +66,19 @@ public class CreditCardAdapter extends BaseAdapter
 			LayoutInflater inflater = LayoutInflater.from(mContext);
 			convertView = inflater.inflate(R.layout.adapter_creditcard, null);
 			ViewHolder holder = new ViewHolder();
+			holder.mTvLast4Num = (TextView) convertView
+					.findViewById(R.id.textView_adapterCreditCard_last4Num);
 			holder.mTvDayBill = (TextView) convertView
 					.findViewById(R.id.textView_adapterCreditCard_dayBill);
 			holder.mTvDayPayment = (TextView) convertView
 					.findViewById(R.id.textView_adapterCreditCard_dayPayment);
 			convertView.setTag(holder);
 		}
-		
+
 		ViewHolder tag = (ViewHolder) convertView.getTag();
-		tag.mTvDayBill.setText(card.getStrBillDate());
-		tag.mTvDayPayment.setText(card.getStrPaymentDate());
+		tag.mTvLast4Num.setText(card.getLast4Num());
+		tag.mTvDayBill.setText("账单日：" + card.getStrBillDate());
+		tag.mTvDayPayment.setText("还款日：" + card.getStrPaymentDate());
 
 		return convertView;
 	}
@@ -79,5 +87,6 @@ public class CreditCardAdapter extends BaseAdapter
 	{
 		private TextView mTvDayBill = null;
 		private TextView mTvDayPayment = null;
+		private TextView mTvLast4Num = null;
 	}
 }

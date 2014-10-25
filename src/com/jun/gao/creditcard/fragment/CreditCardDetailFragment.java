@@ -11,6 +11,7 @@ import com.jun.gao.creditcard.model.CreditCard;
 
 public class CreditCardDetailFragment extends Fragment
 {
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)

@@ -1,24 +1,30 @@
 package com.jun.gao.creditcard.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.provider.BaseColumns;
 
-public final class CreditCard
+public final class CreditCard implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String mBankName;	//银行名
 	private String mCardNum;	//卡号
 	private String mIdentityNum;	//持卡人身份证
 	private String mPhoneNum;	//绑定的手机号
-	private Date mBillDate = new Date();		//账单日
-	private Date mPaymentDate = new Date();	//还款日
+	private int mBillDate;		//账单日
+	private int mPaymentDate;	//还款日
 	private String mLast4Num="0000";	//后4位
 	private Date mDateLastPaied = new Date();	//最后还款的日期
 	
 	public String getStrBillDate()
 	{
-		return transDateToString(mBillDate);
+		return String.valueOf(mBillDate);
 	}
 	
 	public void setmLast4Num(String mLast4Num)
@@ -26,10 +32,9 @@ public final class CreditCard
 		this.mLast4Num = mLast4Num;
 	}
 
-
 	public String getStrPaymentDate()
 	{
-		return transDateToString(mPaymentDate);
+		return String.valueOf(mPaymentDate);
 	}
 	
 	public String getStrLastDate()
@@ -60,22 +65,87 @@ public final class CreditCard
 	{
 		this.mCardNum = mCardNum;
 	}
-	public Date getmBillDate()
+	
+	public String getBankName()
+	{
+		return mBankName;
+	}
+
+	public void setBankName(String bankName)
+	{
+		mBankName = bankName;
+	}
+
+	public String getCardNum()
+	{
+		return mCardNum;
+	}
+
+	public void setCardNum(String cardNum)
+	{
+		mCardNum = cardNum;
+	}
+
+	public String getIdentityNum()
+	{
+		return mIdentityNum;
+	}
+
+	public void setIdentityNum(String identityNum)
+	{
+		mIdentityNum = identityNum;
+	}
+
+	public String getPhoneNum()
+	{
+		return mPhoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum)
+	{
+		mPhoneNum = phoneNum;
+	}
+
+	public int getBillDate()
 	{
 		return mBillDate;
 	}
-	public void setmBillDate(Date mBillDate)
+
+	public void setBillDate(int billDate)
 	{
-		this.mBillDate = mBillDate;
+		mBillDate = billDate;
 	}
-	public Date getmPaymentDate()
+
+	public int getPaymentDate()
 	{
 		return mPaymentDate;
 	}
-	public void setmPaymentDate(Date mPaymentDate)
+
+	public void setPaymentDate(int paymentDate)
 	{
-		this.mPaymentDate = mPaymentDate;
+		mPaymentDate = paymentDate;
 	}
+
+	public String getLast4Num()
+	{
+		if (mCardNum.length() < 4)
+		{
+			return mCardNum;
+		}
+		
+		return mCardNum.substring(mCardNum.length()-4);
+	}
+
+	public Date getDateLastPaied()
+	{
+		return mDateLastPaied;
+	}
+
+	public void setDateLastPaied(Date dateLastPaied)
+	{
+		mDateLastPaied = dateLastPaied;
+	}
+
 	public String getmLast4Num()
 	{
 		return mLast4Num;
