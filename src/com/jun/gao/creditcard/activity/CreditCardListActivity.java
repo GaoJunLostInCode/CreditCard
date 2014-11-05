@@ -10,12 +10,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jun.gao.creditcard.R;
 import com.jun.gao.creditcard.database.SQLiteOperate;
@@ -23,14 +24,15 @@ import com.jun.gao.creditcard.database.SQLiteOperateIml;
 import com.jun.gao.creditcard.fragment.CreditCardListFragment;
 import com.jun.gao.creditcard.fragment.CreditCardListFragment.ItemClickListener;
 import com.jun.gao.creditcard.model.CreditCard;
+import com.jun.gao.creditcard.view.TitleBar;
 
-public class CreditCardListActivity extends CreditCardBaseActivity
+public class CreditCardListActivity extends FragmentActivity
 {
-	private List<CreditCard> mCreditCards = null;			//data source
-	private CreditCardListFragment mFragmentList = null;	//CreditCard list
-	private TextView mTvDate = null;			//显示日期
-	private Dialog mDialogDel = null;			
-	
+	private List<CreditCard> mCreditCards = null; // data source
+	private CreditCardListFragment mFragmentList = null; // CreditCard list
+	private TitleBar mTitleBar = null;
+	private TextView mTvDate = null;  // 显示日期
+	private Dialog mDialogDel = null;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -58,23 +60,30 @@ public class CreditCardListActivity extends CreditCardBaseActivity
 	protected void onResume()
 	{
 		super.onResume();
-
 		refresh();
 	}
 
 	@Override
-	protected String title()
+	protected void onCreate(Bundle arg0)
 	{
-		return "信用卡";
-	}
+		// TODO Auto-generated method stub
+		super.onCreate(arg0);
 
-	@Override
-	protected View onCreateContentView()
-	{
-		LayoutInflater inflater = LayoutInflater.from(this);
-		View view = inflater.inflate(R.layout.activity_creditcard_list, null);
-		
-		mTvDate = (TextView)view.findViewById(R.id.textView_activityCardList_date);
+		setContentView(R.layout.activity_creditcard_list);
+
+		mTitleBar = (TitleBar) findViewById(R.id.titleBar_activityCardList_title);
+		mTitleBar.setTitle("信用卡");
+		mTitleBar.setButtonTextAndListener("添加", new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(CreditCardListActivity.this,
+						CreditCardAddActivity.class);
+				startActivity(intent);
+			}
+		});
+		mTvDate = (TextView) findViewById(R.id.textView_activityCardList_date);
 		Date dateNow = new Date();
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		mTvDate.setText(format.format(dateNow));
@@ -87,14 +96,17 @@ public class CreditCardListActivity extends CreditCardBaseActivity
 			@Override
 			public void onItemClicked(CreditCard card)
 			{
-				Intent intent = new Intent(CreditCardListActivity.this,
-						CreditCardDetailActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable(
-						CreditCardDetailActivity.INTENT_KEY_CARD, card);
-				intent.putExtra(CreditCardDetailActivity.INTENT_BUNDLE_NAME,
-						bundle);
-				startActivity(intent);
+				// Intent intent = new Intent(CreditCardListActivity.this,
+				// CreditCardDetailActivity.class);
+				// Bundle bundle = new Bundle();
+				// bundle.putSerializable(
+				// CreditCardDetailActivity.INTENT_KEY_CARD, card);
+				// intent.putExtra(CreditCardDetailActivity.INTENT_BUNDLE_NAME,
+				// bundle);
+				// startActivity(intent);
+
+				Toast.makeText(CreditCardListActivity.this, "ItemClicked..",
+						Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -135,22 +147,6 @@ public class CreditCardListActivity extends CreditCardBaseActivity
 				mDialogDel.show();
 			}
 		});
-
-		return view;
-	}
-
-	@Override
-	protected void onRightOptButtonClicked(View view)
-	{
-		Intent intent = new Intent(CreditCardListActivity.this,
-				CreditCardAddActivity.class);
-		startActivity(intent);
-	}
-
-	@Override
-	protected String rightButtonText()
-	{
-		return "添加";
 	}
 
 	private void refresh()

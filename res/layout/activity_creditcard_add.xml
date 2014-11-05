@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <com.jun.gao.creditcard.view.TitleBar
+        
+        android:id="@+id/titleBar_activityCreditCardAdd_title"
+        android:layout_width="match_parent"
+        android:background="#9c6f82"
+        android:layout_height="wrap_content" >
+    </com.jun.gao.creditcard.view.TitleBar>
+
     <fragment
         android:id="@+id/fragment_activity_creditCardAdd"
         android:name="com.jun.gao.creditcard.fragment.CreditCardAddFragment"

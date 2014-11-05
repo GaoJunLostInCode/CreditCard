@@ -39,12 +39,14 @@ public class CreditCardAddFragment extends Fragment
 
 		String[] banks = getResources().getStringArray(R.array.spinner_banks);
 		mAdapterSpinnerBanks = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_spinner_dropdown_item, banks);
+				R.layout.item_spinner, R.id.textView_itemSpinner_itemValue,
+				banks);
 		mSpinnerBank.setAdapter(mAdapterSpinnerBanks);
 
 		String[] days = getResources().getStringArray(R.array.spinner_days);
 		mAdapterSpinnerDays = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_spinner_dropdown_item, days);
+				R.layout.item_spinner, R.id.textView_itemSpinner_itemValue,
+				days);
 		mSpinnerDayBill.setAdapter(mAdapterSpinnerDays);
 		mSpinnerDayPayment.setAdapter(mAdapterSpinnerDays);
 
@@ -62,11 +64,11 @@ public class CreditCardAddFragment extends Fragment
 
 		String day = mAdapterSpinnerDays.getItem(mSpinnerDayBill
 				.getSelectedItemPosition());
-		card.setBillDate(Integer.valueOf(day));
+		card.setBillDay(Integer.valueOf(day));
 
 		day = mAdapterSpinnerDays.getItem(mSpinnerDayPayment
 				.getSelectedItemPosition());
-		card.setPaymentDate(Integer.valueOf(day));
+		card.setPaymentDay(Integer.valueOf(day));
 
 		return card;
 	}

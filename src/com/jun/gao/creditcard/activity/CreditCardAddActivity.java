@@ -1,6 +1,7 @@
 package com.jun.gao.creditcard.activity;
 
-import android.view.LayoutInflater;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -9,50 +10,41 @@ import com.jun.gao.creditcard.database.SQLiteOperate;
 import com.jun.gao.creditcard.database.SQLiteOperateIml;
 import com.jun.gao.creditcard.fragment.CreditCardAddFragment;
 import com.jun.gao.creditcard.model.CreditCard;
+import com.jun.gao.creditcard.view.TitleBar;
 
-public class CreditCardAddActivity extends CreditCardBaseActivity
+public class CreditCardAddActivity extends FragmentActivity
 {
+	private TitleBar mTitleBar = null;
 	private CreditCardAddFragment mFragment = null;
 
-	@Override
-	protected String title()
-	{
-		return "添加";
-	}
+	private SQLiteOperate sqlOperator = null;
 
 	@Override
-	protected View onCreateContentView()
+	protected void onCreate(Bundle arg0)
 	{
-		LayoutInflater inflater = LayoutInflater.from(this);
-		View view = inflater.inflate(R.layout.activity_creditcard_add, null);
+		// TODO Auto-generated method stub
+		super.onCreate(arg0);
+
+		sqlOperator = new SQLiteOperateIml(this);
+
+		setContentView(R.layout.activity_creditcard_add);
+		mTitleBar = (TitleBar) findViewById(R.id.titleBar_activityCreditCardAdd_title);
+		mTitleBar.setTitle("添加新卡");
+		mTitleBar.setButtonTextAndListener("完成", new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				CreditCard card = mFragment.createCreditCard();
+				sqlOperator.addCreditCard(card);
+				Toast.makeText(CreditCardAddActivity.this, "保存成功！",
+						Toast.LENGTH_SHORT).show();
+				finish();
+			}
+		});
 		mFragment = (CreditCardAddFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.fragment_activity_creditCardAdd);
 
-		return view;
-	}
-
-	@Override
-	protected void onRightOptButtonClicked(View view)
-	{
-		CreditCard card = mFragment.createCreditCard();
-
-		SQLiteOperate mSqLiteOperate = new SQLiteOperateIml(this);
-		long id = mSqLiteOperate.addCreditCard(card);
-		if (id > 0)
-		{
-			Toast.makeText(this, "添加成功!", Toast.LENGTH_SHORT).show();
-			finish();
-		}
-		else
-		{
-			Toast.makeText(this, "添加失败!", Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	@Override
-	protected String rightButtonText()
-	{
-		return "保存";
 	}
 
 }

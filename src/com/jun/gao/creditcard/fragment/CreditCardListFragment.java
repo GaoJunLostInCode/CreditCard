@@ -2,7 +2,6 @@ package com.jun.gao.creditcard.fragment;
 
 import java.util.List;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.jun.gao.creditcard.R;
 import com.jun.gao.creditcard.adapter.CreditCardAdapter;
+import com.jun.gao.creditcard.adapter.CreditCardAdapter.ClickListener;
 import com.jun.gao.creditcard.model.CreditCard;
 
 /**
@@ -23,7 +24,7 @@ public class CreditCardListFragment extends Fragment
 	private ListView mListView = null;
 	private CreditCardAdapter mAdapter = null;
 	private ItemClickListener mListener = null;
-	
+
 	public interface ItemClickListener
 	{
 		public void onItemClicked(CreditCard card);
@@ -91,7 +92,6 @@ public class CreditCardListFragment extends Fragment
 					}
 				});
 
-		rootView.setBackgroundColor(Color.TRANSPARENT);
 		return rootView;
 	}
 
@@ -101,6 +101,15 @@ public class CreditCardListFragment extends Fragment
 		{
 			mAdapter = new CreditCardAdapter(getActivity()
 					.getApplicationContext(), cards);
+			mAdapter.setListener(new ClickListener()
+			{
+				@Override
+				public void onButtonClicked(CreditCard card)
+				{
+					Toast.makeText(getActivity(), "button clicked...",
+							Toast.LENGTH_SHORT).show();
+				}
+			});
 			mListView.setAdapter(mAdapter);
 		}
 		else

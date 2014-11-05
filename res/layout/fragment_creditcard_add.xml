@@ -2,86 +2,143 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="#FFFFFF"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/textView_fragmentCreditCard_labelCardName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="卡        号"
+                android:layout_centerVertical="true"
+                android:text="卡  名  称："
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/editText_fragmentAdd_cardNum"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView_fragmentCreditCard_labelCardName"
+                android:background="#00000000"
                 android:ems="10"
+                android:gravity="right"
                 android:singleLine="true" >
             </EditText>
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="1dp"
+            android:background="#e2e2e2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <TextView
+                android:id="@+id/textView_fragmentCreditCard_labelBankName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发卡银行"
+                android:layout_centerVertical="true"
+                android:text="发卡银行："
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
                 android:id="@+id/spinner_fragmentAdd_bank"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView_fragmentCreditCard_labelBankName"
+                android:background="#00000000"
+                android:gravity="right" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
+            android:layout_height="1dp"
+            android:background="#e2e2e2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <TextView
+                android:id="@+id/textView_fragmentCreditCard_labelBillDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="账  单  日"
+                android:layout_centerVertical="true"
+                android:text="账  单  日："
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
                 android:id="@+id/spinner_adapterFragmentAdd_dayBill"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView_fragmentCreditCard_labelBillDay"
+                android:background="#00000000" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
+            android:layout_height="1dp"
+            android:background="#e2e2e2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <TextView
+                android:id="@+id/textView_fragmentCreditCard_labelPaymentDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="还  款  日"
+                android:layout_centerVertical="true"
+                android:text="还  款  日："
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
                 android:id="@+id/spinner_adapterFragmentAdd_dayPayment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView_fragmentCreditCard_labelPaymentDay"
+                android:background="#00000000"
+                android:gravity="right" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e2e2e2" />
 
         <!--
              <Button

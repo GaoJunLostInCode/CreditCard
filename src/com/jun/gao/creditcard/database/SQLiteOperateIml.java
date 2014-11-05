@@ -25,6 +25,19 @@ public class SQLiteOperateIml implements SQLiteOperate
 	@Override
 	public long addCreditCard(CreditCard card)
 	{
+		ContentValues values = createValues(card);
+
+		SQLiteDatabase sqLiteDatabase = mDb.getWritableDatabase();
+		long creditCardId = sqLiteDatabase.insert(
+				CreditCardSQLiteHelper.DICTIONARY_TABLE_NAME, null, values);
+		System.out.println("addCreditCard id=====" + creditCardId);
+		sqLiteDatabase.close();
+
+		return creditCardId;
+	}
+
+	private ContentValues createValues(CreditCard card)
+	{
 		ContentValues values = new ContentValues();
 		values.put(CreditCardColumn.CARD_NUM, card.getmCardNum());
 		values.put(CreditCardColumn.CARD_BANK, card.getmBankName());
@@ -32,22 +45,19 @@ public class SQLiteOperateIml implements SQLiteOperate
 		values.put(CreditCardColumn.DATE_LASTPAIED, card.getStrLastDate());
 		values.put(CreditCardColumn.DATE_PAYMENT, card.getStrPaymentDate());
 		values.put(CreditCardColumn.CARD_LAST4NUM, card.getmLast4Num());
+		values.put(CreditCardColumn.STATUS_PAID, card.isPaied());
 
-		SQLiteDatabase sqLiteDatabase = mDb.getWritableDatabase();
-		long creditCardId = sqLiteDatabase.insert("creditcard", null, values);
-		System.out.println("addCreditCard id=====" + creditCardId);
-		sqLiteDatabase.close();
-
-		return creditCardId;
+		return values;
 	}
 
 	@Override
 	public int deleteCreditCard(CreditCard card)
 	{
 		SQLiteDatabase sqLiteDatabase = mDb.getReadableDatabase();
-		int count = sqLiteDatabase.delete(CreditCardSQLiteHelper.DICTIONARY_TABLE_NAME,
-				CreditCardColumn.CARD_NUM + "=?", new String[]
-				{ card.getmCardNum() });
+		int count = sqLiteDatabase.delete(
+				CreditCardSQLiteHelper.DICTIONARY_TABLE_NAME,
+				CreditCardColumn._ID + "=?", new String[]
+				{ String.valueOf(card.getId()) });
 		sqLiteDatabase.close();
 		return count;
 	}
@@ -55,7 +65,16 @@ public class SQLiteOperateIml implements SQLiteOperate
 	@Override
 	public int updateCrditCard(CreditCard card)
 	{
-		return 0;
+		SQLiteDatabase sqlDatabase = mDb.getReadableDatabase();
+
+		int rows = sqlDatabase.updateWithOnConflict(
+				CreditCardSQLiteHelper.DICTIONARY_TABLE_NAME,
+				createValues(card), CreditCardColumn._ID + "=?", new String[]
+				{ String.valueOf(card.getId()) }, 0);
+
+		sqlDatabase.close();
+
+		return rows;
 	}
 
 	@Override
@@ -66,7 +85,7 @@ public class SQLiteOperateIml implements SQLiteOperate
 
 		Cursor cursor = sqlDatabase.query(
 				CreditCardSQLiteHelper.DICTIONARY_TABLE_NAME, null, null, null,
-				null, null, CreditCardColumn.DATE_BILL + " DESC");
+				null, null, CreditCardColumn.DATE_BILL + " ASC");
 		if (null != cursor)
 		{
 			listCards = new ArrayList<CreditCard>();
@@ -82,6 +101,9 @@ public class SQLiteOperateIml implements SQLiteOperate
 							.getColumnIndex(CreditCardColumn.CARD_BANK);
 					card.setmBankName(cursor.getString(index));
 
+					index = cursor.getColumnIndex(CreditCardColumn._ID);
+					card.setId(cursor.getInt(index));
+
 					index = cursor
 							.getColumnIndex(CreditCardColumn.CARD_LAST4NUM);
 					card.setmLast4Num(cursor.getString(index));
@@ -91,7 +113,7 @@ public class SQLiteOperateIml implements SQLiteOperate
 
 					index = cursor.getColumnIndex(CreditCardColumn.DATE_BILL);
 					int day = cursor.getInt(index);
-					card.setBillDate(day);
+					card.setBillDay(day);
 
 					index = cursor
 							.getColumnIndex(CreditCardColumn.DATE_LASTPAIED);
@@ -101,7 +123,7 @@ public class SQLiteOperateIml implements SQLiteOperate
 					index = cursor
 							.getColumnIndex(CreditCardColumn.DATE_PAYMENT);
 					day = cursor.getInt(index);
-					card.setPaymentDate(day);
+					card.setPaymentDay(day);
 
 					index = cursor
 							.getColumnIndex(CreditCardColumn.IDENTITY_NUM);
@@ -109,6 +131,16 @@ public class SQLiteOperateIml implements SQLiteOperate
 
 					index = cursor.getColumnIndex(CreditCardColumn.PHONE_NUM);
 					card.setmPhoneNum(cursor.getString(index));
+
+					index = cursor.getColumnIndex(CreditCardColumn.STATUS_PAID);
+					if (1 == cursor.getInt(index))
+					{
+						card.setIsPaied(true);
+					}
+					else
+					{
+						card.setIsPaied(false);
+					}
 
 					listCards.add(card);
 				}

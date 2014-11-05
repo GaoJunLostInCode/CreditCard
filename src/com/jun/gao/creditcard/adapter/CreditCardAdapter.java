@@ -18,6 +18,17 @@ public class CreditCardAdapter extends BaseAdapter
 {
 	private Context mContext = null;
 	private List<CreditCard> mCreditCards = null;
+	private ClickListener mListener = null;
+
+	public interface ClickListener
+	{
+		public void onButtonClicked(CreditCard card);
+	}
+
+	public void setListener(ClickListener listener)
+	{
+		mListener = listener;
+	}
 
 	public CreditCardAdapter(Context context, List<CreditCard> cards)
 	{
@@ -62,7 +73,7 @@ public class CreditCardAdapter extends BaseAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		CreditCard card = (CreditCard) getItem(position);
+		final CreditCard card = (CreditCard) getItem(position);
 		if (null == convertView)
 		{
 			LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -71,11 +82,13 @@ public class CreditCardAdapter extends BaseAdapter
 			holder.mImgIcon = (ImageView) convertView
 					.findViewById(R.id.imageView_adapterCreditCard_bankIcon);
 			holder.mTvLast4Num = (TextView) convertView
-					.findViewById(R.id.textView_adapterCreditCard_last4Num);
+					.findViewById(R.id.textView_adapterCreditCard_cardAlias);
 			holder.mTvDayBill = (TextView) convertView
 					.findViewById(R.id.textView_adapterCreditCard_dayBill);
 			holder.mTvDayPayment = (TextView) convertView
 					.findViewById(R.id.textView_adapterCreditCard_dayPayment);
+			holder.mBtnHuanKuanStatus = (ImageView) convertView
+					.findViewById(R.id.imageView_adapterCreditCard_huanKuanStatus);
 			convertView.setTag(holder);
 		}
 
@@ -85,6 +98,17 @@ public class CreditCardAdapter extends BaseAdapter
 		tag.mTvLast4Num.setText(card.getLast4Num());
 		tag.mTvDayBill.setText("账单日：" + card.getStrBillDate());
 		tag.mTvDayPayment.setText("还款日：" + card.getStrPaymentDate());
+		tag.mBtnHuanKuanStatus.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				if (null != mListener)
+				{
+					mListener.onButtonClicked(card);
+				}
+			}
+		});
 
 		return convertView;
 	}
@@ -95,5 +119,6 @@ public class CreditCardAdapter extends BaseAdapter
 		private TextView mTvDayBill = null; // 账单日
 		private TextView mTvDayPayment = null; // 还款日
 		private TextView mTvLast4Num = null; // 后四位
+		private ImageView mBtnHuanKuanStatus = null; // 还款状态
 	}
 }

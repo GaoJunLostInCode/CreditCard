@@ -45,5 +45,7 @@
         <item >浦发</item>
         <item >中信</item>
     </string-array>
+    <string name="title_activity_cardlist">我的信用卡</string>
+    <string name="title_activity_add">添加</string>
 
 </resources>

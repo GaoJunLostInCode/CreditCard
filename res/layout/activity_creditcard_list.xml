@@ -1,42 +1,67 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="vertical"
+    android:background="#aa88cc"
     tools:context="com.lostincode.creditcard.MainActivity"
-    tools:ignore="MergeRootFrame" 
-    >
+    tools:ignore="MergeRootFrame" >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/main_photo2"
+        >
+        
+    </LinearLayout>
 
-    <!-- <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!--
+         <Button
         android:id="@+id/button_fragment_main_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="addCreditCard"
-        android:text="Add" /> -->
+        android:text="Add" />
+        -->
 
-    <TextView
-		android:layout_margin="12dp"
-		android:layout_gravity="right"
-		android:textColor="@android:color/black"
-		android:textSize="18sp"
-        android:id="@+id/textView_activityCardList_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <com.jun.gao.creditcard.view.TitleBar
+            android:id="@+id/titleBar_activityCardList_title"
+            android:layout_width="wrap_content"
+			android:background="#00000000"
+            android:layout_height="wrap_content" >
+        </com.jun.gao.creditcard.view.TitleBar>
+        
+        <ImageView 
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFFFFF"
+            />
+
+        <TextView
+            android:id="@+id/textView_activityCardList_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="12dp"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <fragment
             android:id="@+id/fragment_activity_creditCardList"
             android:name="com.jun.gao.creditcard.fragment.CreditCardListFragment"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp" >
         </fragment>
+    </LinearLayout>
 
-        
-
-
-</LinearLayout>
+</FrameLayout>
