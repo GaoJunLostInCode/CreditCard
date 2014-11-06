@@ -19,8 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jun.gao.creditcard.R;
-import com.jun.gao.creditcard.database.SQLiteOperate;
-import com.jun.gao.creditcard.database.SQLiteOperateIml;
+import com.jun.gao.creditcard.database.CreditCardSQLiteOperate;
+import com.jun.gao.creditcard.database.CreditCardSQLiteOperateIml;
 import com.jun.gao.creditcard.fragment.CreditCardListFragment;
 import com.jun.gao.creditcard.fragment.CreditCardListFragment.ItemClickListener;
 import com.jun.gao.creditcard.model.CreditCard;
@@ -122,7 +122,7 @@ public class CreditCardListActivity extends FragmentActivity
 								public void onClick(DialogInterface dialog,
 										int which)
 								{
-									SQLiteOperate mSqLiteOperate = new SQLiteOperateIml(
+									CreditCardSQLiteOperate mSqLiteOperate = new CreditCardSQLiteOperateIml(
 											getApplicationContext());
 									mSqLiteOperate.deleteCreditCard(card);
 									refresh();
@@ -151,7 +151,7 @@ public class CreditCardListActivity extends FragmentActivity
 
 	private void refresh()
 	{
-		SQLiteOperate mSqLiteOperate = new SQLiteOperateIml(
+		CreditCardSQLiteOperate mSqLiteOperate = new CreditCardSQLiteOperateIml(
 				getApplicationContext());
 		mCreditCards = mSqLiteOperate.listAllCreditCards();
 

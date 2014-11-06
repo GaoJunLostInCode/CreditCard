@@ -11,8 +11,8 @@ import android.widget.FrameLayout;
 
 import com.jun.gao.creditcard.R;
 import com.jun.gao.creditcard.adapter.CreditCardAdapter;
-import com.jun.gao.creditcard.database.SQLiteOperate;
-import com.jun.gao.creditcard.database.SQLiteOperateIml;
+import com.jun.gao.creditcard.database.CreditCardSQLiteOperate;
+import com.jun.gao.creditcard.database.CreditCardSQLiteOperateIml;
 import com.jun.gao.creditcard.model.CreditCard;
 
 public class CreditCardListScrollFragment extends Fragment

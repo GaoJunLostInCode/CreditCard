@@ -28,7 +28,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editText_fragmentAdd_cardNum"
+                android:id="@+id/editText_fragmentAdd_cardName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

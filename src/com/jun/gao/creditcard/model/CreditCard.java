@@ -12,8 +12,9 @@ import android.util.MonthDisplayHelper;
 
 /**
  * 信用卡
+ * 
  * @author gaojun
- *
+ * 
  */
 public final class CreditCard implements Serializable
 {
@@ -23,7 +24,7 @@ public final class CreditCard implements Serializable
 	private static final long serialVersionUID = 1L;
 	private int mId = -1;
 	private String mBankName; // 银行名
-	private String mCardNum; // 卡号
+	private String mCardName; // 卡名称
 	private String mIdentityNum; // 持卡人身份证
 	private String mPhoneNum; // 绑定的手机号
 	private int mBillDay; // 账单日
@@ -45,33 +46,37 @@ public final class CreditCard implements Serializable
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
 		int today = calendar.get(Calendar.DATE);
-		if (isChuZhang())
+		if (mPaymentDay > mBillDay)
 		{
-			if (mPaymentDay < mBillDay && mPaymentDay > today)
+			if (today <= mBillDay)
 			{
-				ret.append(year).append("-").append(month + 1).append("-")
-						.append(mPaymentDay);
+				month += 1;
 			}
 			else
 			{
-				ret.append(year).append("-").append(month).append("-")
-						.append(mPaymentDay);
+				month += 2;
 			}
 		}
 		else
 		{
-			if (mPaymentDay > mBillDay && today <= mBillDay)
+			if (today <= mBillDay)
 			{
-				ret.append(year).append("-").append(month).append("-")
-						.append(mPaymentDay);
+				month += 2;
 			}
 			else
 			{
-				ret.append(year).append("-").append(month + 1).append("-")
-						.append(mPaymentDay);
+				month += 3;
 			}
 		}
 
+		if (month > 12)
+		{
+			year++;
+			month = month - 12;
+		}
+
+		ret.append(year).append("-").append(month).append("-")
+				.append(mPaymentDay);
 		return ret.toString();
 	}
 
@@ -83,6 +88,26 @@ public final class CreditCard implements Serializable
 	public void setId(int id)
 	{
 		this.mId = id;
+	}
+
+	// 距出账日剩余天数
+	public int daysToBillDay()
+	{
+		int daysToBillDay = 0;
+		Calendar calendar = Calendar.getInstance();
+		int today = calendar.get(Calendar.DATE);
+		if (today <= mBillDay)
+		{
+			daysToBillDay = mBillDay - today;
+		}
+		else
+		{
+			int daysLeftThisMonth = calendar.getActualMaximum(Calendar.DATE)
+					- today;
+			daysToBillDay = daysLeftThisMonth + mBillDay;
+		}
+
+		return daysToBillDay;
 	}
 
 	public boolean isChuZhang()
@@ -166,12 +191,12 @@ public final class CreditCard implements Serializable
 
 	public String getmCardNum()
 	{
-		return mCardNum;
+		return mCardName;
 	}
 
 	public void setmCardNum(String mCardNum)
 	{
-		this.mCardNum = mCardNum;
+		this.mCardName = mCardNum;
 	}
 
 	public String getBankName()
@@ -184,14 +209,14 @@ public final class CreditCard implements Serializable
 		mBankName = bankName;
 	}
 
-	public String getCardNum()
+	public String getCardName()
 	{
-		return mCardNum;
+		return mCardName;
 	}
 
-	public void setCardNum(String cardNum)
+	public void setCardName(String cardNum)
 	{
-		mCardNum = cardNum;
+		mCardName = cardNum;
 	}
 
 	public String getIdentityNum()
@@ -236,12 +261,12 @@ public final class CreditCard implements Serializable
 
 	public String getLast4Num()
 	{
-		if (mCardNum.length() < 4)
+		if (mCardName.length() < 4)
 		{
-			return mCardNum;
+			return mCardName;
 		}
 
-		return mCardNum.substring(mCardNum.length() - 4);
+		return mCardName.substring(mCardName.length() - 4);
 	}
 
 	public Date getDateLastPaied()

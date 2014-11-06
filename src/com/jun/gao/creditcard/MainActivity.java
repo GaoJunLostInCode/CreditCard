@@ -14,13 +14,14 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jun.gao.creditcard.activity.CreditCardAddActivity;
-import com.jun.gao.creditcard.database.SQLiteOperate;
-import com.jun.gao.creditcard.database.SQLiteOperateIml;
+import com.jun.gao.creditcard.database.CreditCardSQLiteOperate;
+import com.jun.gao.creditcard.database.CreditCardSQLiteOperateIml;
 import com.jun.gao.creditcard.model.CreditCard;
 import com.jun.gao.creditcard.view.CreditCardView;
 import com.jun.gao.creditcard.view.TitleBar;
@@ -94,27 +95,42 @@ public class MainActivity extends FragmentActivity implements
 	private void refresh()
 	{
 		mLlContainer.removeAllViews();
-		SQLiteOperate mSqLiteOperate = new SQLiteOperateIml(
+		CreditCardSQLiteOperate mSqLiteOperate = new CreditCardSQLiteOperateIml(
 				getApplicationContext());
 		mCreditCards = mSqLiteOperate.listAllCreditCards();
 
 		for (int i = 0, len = mCreditCards.size(); i < len; i++)
 		{
-			final CreditCard careCard = mCreditCards.get(i);
+			final CreditCard creditCard = mCreditCards.get(i);
 			CreditCardView cardView = new CreditCardView(this);
 			cardView.setListener(this);
 			mLlContainer.addView(cardView);
-			cardView.displayCreditCard(careCard);
+			cardView.displayCreditCard(creditCard);
+			cardView.setOnClickListener(new OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					startCardDetailActivity(creditCard);
+				}
+			});
 			cardView.setOnLongClickListener(new OnLongClickListener()
 			{
 				@Override
 				public boolean onLongClick(View v)
 				{
-					onLongItemClicked(careCard);
+					onLongItemClicked(creditCard);
 					return false;
 				}
 			});
 		}
+	}
+	
+	private void startCardDetailActivity(CreditCard card)
+	{
+		Intent intent = new Intent(this, CreditCardAddActivity.class);
+		intent.putExtra(CreditCardAddActivity.INTENT_KEY_CREDITCARD, card);
+		startActivity(intent);
 	}
 
 	public void onLongItemClicked(final CreditCard card)
@@ -128,7 +144,7 @@ public class MainActivity extends FragmentActivity implements
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
-							SQLiteOperate mSqLiteOperate = new SQLiteOperateIml(
+							CreditCardSQLiteOperate mSqLiteOperate = new CreditCardSQLiteOperateIml(
 									getApplicationContext());
 							mSqLiteOperate.deleteCreditCard(card);
 							refresh();
@@ -156,7 +172,7 @@ public class MainActivity extends FragmentActivity implements
 	public void onButtonClicked(CreditCardView view, CreditCard card)
 	{
 		card.setIsPaied(!card.isPaied());
-		SQLiteOperate mSqLiteOperate = new SQLiteOperateIml(
+		CreditCardSQLiteOperate mSqLiteOperate = new CreditCardSQLiteOperateIml(
 				getApplicationContext());
 		mSqLiteOperate.updateCrditCard(card);
 		view.displayCreditCard(card);

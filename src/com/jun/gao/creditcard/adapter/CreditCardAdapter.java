@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.jun.gao.creditcard.R;
 import com.jun.gao.creditcard.model.CreditCard;
-import com.jun.gao.creditcard.util.BankLogo;
+import com.jun.gao.creditcard.util.BankUtil;
 
 public class CreditCardAdapter extends BaseAdapter
 {
@@ -77,24 +77,24 @@ public class CreditCardAdapter extends BaseAdapter
 		if (null == convertView)
 		{
 			LayoutInflater inflater = LayoutInflater.from(mContext);
-			convertView = inflater.inflate(R.layout.adapter_creditcard, null);
+			convertView = inflater.inflate(R.layout.view_creditcard, null);
 			ViewHolder holder = new ViewHolder();
 			holder.mImgIcon = (ImageView) convertView
-					.findViewById(R.id.imageView_adapterCreditCard_bankIcon);
+					.findViewById(R.id.imageView_viewCreditCard_bankIcon);
 			holder.mTvLast4Num = (TextView) convertView
-					.findViewById(R.id.textView_adapterCreditCard_cardAlias);
+					.findViewById(R.id.textView_viewCreditCard_cardAlias);
 			holder.mTvDayBill = (TextView) convertView
-					.findViewById(R.id.textView_adapterCreditCard_dayBill);
+					.findViewById(R.id.textView_viewCreditCard_dayBill);
 			holder.mTvDayPayment = (TextView) convertView
-					.findViewById(R.id.textView_adapterCreditCard_dayPayment);
+					.findViewById(R.id.textView_viewCreditCard_dayPayment);
 			holder.mBtnHuanKuanStatus = (ImageView) convertView
-					.findViewById(R.id.imageView_adapterCreditCard_huanKuanStatus);
+					.findViewById(R.id.imageView_viewCreditCard_huanKuanStatus);
 			convertView.setTag(holder);
 		}
 
 		ViewHolder tag = (ViewHolder) convertView.getTag();
 		tag.mImgIcon
-				.setImageResource(BankLogo.getBankLogoId(card.getBankName()));
+				.setImageResource(BankUtil.getBankLogoId(card.getBankName()));
 		tag.mTvLast4Num.setText(card.getLast4Num());
 		tag.mTvDayBill.setText("账单日：" + card.getStrBillDate());
 		tag.mTvDayPayment.setText("还款日：" + card.getStrPaymentDate());

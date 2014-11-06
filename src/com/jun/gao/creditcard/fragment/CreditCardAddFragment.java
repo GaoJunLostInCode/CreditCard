@@ -8,13 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.jun.gao.creditcard.R;
 import com.jun.gao.creditcard.model.CreditCard;
+import com.jun.gao.creditcard.util.BankUtil;
 
 public class CreditCardAddFragment extends Fragment
 {
-	private EditText mEtCardNum = null;
+	private EditText mEtCardName = null;
 
 	private Spinner mSpinnerBank = null;
 	private Spinner mSpinnerDayBill = null;
@@ -28,8 +30,8 @@ public class CreditCardAddFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.fragment_creditcard_add, null);
 
-		mEtCardNum = (EditText) view
-				.findViewById(R.id.editText_fragmentAdd_cardNum);
+		mEtCardName = (EditText) view
+				.findViewById(R.id.editText_fragmentAdd_cardName);
 		mSpinnerBank = (Spinner) view
 				.findViewById(R.id.spinner_fragmentAdd_bank);
 		mSpinnerDayBill = (Spinner) view
@@ -37,7 +39,7 @@ public class CreditCardAddFragment extends Fragment
 		mSpinnerDayPayment = (Spinner) view
 				.findViewById(R.id.spinner_adapterFragmentAdd_dayPayment);
 
-		String[] banks = getResources().getStringArray(R.array.spinner_banks);
+		String[] banks = BankUtil.getBankNames();
 		mAdapterSpinnerBanks = new ArrayAdapter<String>(getActivity(),
 				R.layout.item_spinner, R.id.textView_itemSpinner_itemValue,
 				banks);
@@ -53,10 +55,39 @@ public class CreditCardAddFragment extends Fragment
 		return view;
 	}
 
-	public CreditCard createCreditCard()
+	public void showCreditCard(CreditCard card)
 	{
-		CreditCard card = new CreditCard();
-		card.setmCardNum(mEtCardNum.getText().toString());
+		mEtCardName.setText(card.getCardName());
+		mSpinnerBank.setSelection(BankUtil.getBankIndex(card.getBankName()));
+		mSpinnerDayBill.setSelection(card.getBillDay() - 1);
+		mSpinnerDayPayment.setSelection(card.getPaymentDay() - 1);
+	}
+
+	public CreditCard creatCreditCard()
+	{
+		return setCredtiCardValues(null);
+	}
+
+	public void editCreditCard(CreditCard card)
+	{
+		setCredtiCardValues(card);
+	}
+
+	private CreditCard setCredtiCardValues(CreditCard card)
+	{
+		if (mEtCardName.getText() == null
+				|| mEtCardName.getText().toString().equals(""))
+		{
+			Toast.makeText(getActivity(), "请输入卡名称！", Toast.LENGTH_SHORT).show();
+			return null;
+		}
+
+		if (null == card)
+		{
+			card = new CreditCard();
+		}
+
+		card.setmCardNum(mEtCardName.getText().toString());
 
 		String bank = mAdapterSpinnerBanks.getItem(mSpinnerBank
 				.getSelectedItemPosition());
