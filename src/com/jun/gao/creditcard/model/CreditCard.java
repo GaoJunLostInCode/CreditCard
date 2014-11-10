@@ -7,6 +7,7 @@ import java.util.Date;
 
 import android.R.integer;
 import android.provider.BaseColumns;
+import android.text.format.Time;
 import android.util.Log;
 import android.util.MonthDisplayHelper;
 
@@ -32,6 +33,8 @@ public final class CreditCard implements Serializable
 	private String mLast4Num = "0000"; // 后4位
 	private Date mDateLastPaied = new Date(); // 最后还款的日期
 	private boolean mIsPaied = false; // 是否已还
+	private Time mRemindTime = null;	//还款提醒时间
+	private int mRemindDay = 0;		//还款提醒日 
 
 	public String getBillStatus()
 	{
@@ -45,7 +48,8 @@ public final class CreditCard implements Serializable
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
-		int today = calendar.get(Calendar.DATE);
+		int today = calendar.get(Calendar.DAY_OF_MONTH);
+		int daysThisMonth = calendar.getActualMaximum(Calendar.DATE);
 		if (mPaymentDay > mBillDay)
 		{
 			if (today <= mBillDay)
@@ -75,8 +79,13 @@ public final class CreditCard implements Serializable
 			month = month - 12;
 		}
 
+		int day = mPaymentDay;
+		if (mPaymentDay > daysThisMonth)
+		{
+			day = daysThisMonth;
+		}
 		ret.append(year).append("-").append(month).append("-")
-				.append(mPaymentDay);
+				.append(day);
 		return ret.toString();
 	}
 

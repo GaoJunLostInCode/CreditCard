@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.jun.gao.creditcard.activity.CreditCardAddActivity;
 import com.jun.gao.creditcard.database.CreditCardSQLiteOperate;
 import com.jun.gao.creditcard.database.CreditCardSQLiteOperateIml;
 import com.jun.gao.creditcard.model.CreditCard;
+import com.jun.gao.creditcard.service.PaymentRemindService;
 import com.jun.gao.creditcard.view.CreditCardView;
 import com.jun.gao.creditcard.view.TitleBar;
 
@@ -70,7 +72,11 @@ public class MainActivity extends FragmentActivity implements
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-
+		
+		Intent intent = new Intent("com.jun.gao.creditcard.service.PaymentRemindService");
+//		bindService(intent, null, Service.BIND_AUTO_CREATE);
+		startService(intent);
+		
 		setContentView(R.layout.activity_main);
 		mLlContainer = (LinearLayout) findViewById(R.id.container);
 

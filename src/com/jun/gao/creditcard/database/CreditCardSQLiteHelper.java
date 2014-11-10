@@ -13,6 +13,7 @@ public class CreditCardSQLiteHelper extends SQLiteOpenHelper
 	private static final int DATABASE_VERSION = 1;
 	public static final String DICTIONARY_TABLE_NAME = "creditcard";
 	public static final String DICTIONARY_TABLE_NAME_PAYMENT_RECORD = "creditcard_payment_record"; // 还款记录表
+	
 	private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS "
 			+ DICTIONARY_TABLE_NAME
 			+ " ("
@@ -61,12 +62,12 @@ public class CreditCardSQLiteHelper extends SQLiteOpenHelper
 			+ ") "
 			+ "ON DELETE CASCADE ON UPDATE CASCADE);";
 
+	
 	public CreditCardSQLiteHelper(Context context, String name,
 			CursorFactory factory, int version)
 	{
 		super(context, DICTIONARY_TABLE_NAME, factory, DATABASE_VERSION);
 		// TODO Auto-generated constructor stub
-
 	}
 
 	@Override

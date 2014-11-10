@@ -3,7 +3,7 @@
     package="com.jun.gao.creditcard"
     android:versionCode="1"
     android:versionName="1.0" >
-
+    
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="15" />
@@ -16,8 +16,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.jun.gao.creditcard.MainActivity"
-            android:label="@string/app_name" 
-            android:launchMode="singleInstance">
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,14 @@
         </activity>
         <activity android:name="com.jun.gao.creditcard.activity.CreditCardAddActivity" >
         </activity>
+
+        <service
+            android:name="com.jun.gao.creditcard.service.PaymentRemindService"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.jun.gao.creditcard.service.PaymentRemindService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
